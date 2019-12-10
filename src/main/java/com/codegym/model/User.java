@@ -22,6 +22,17 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private UserType type;
+    @ManyToOne
+    @JoinColumn(name = "classes_id")
+    private Classes classes;
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<RolesInClass> rolesInClasses;
 
-
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }
